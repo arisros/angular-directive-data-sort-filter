@@ -16,7 +16,6 @@
 
     vm.sortType     = SortAppFactory.data.sortType; // set the default sort type
     vm.sortReverse  = SortAppFactory.data.sortReverse;  // set the default sort order
-    vm.searchFish   = SortAppFactory.data.searchFish;     // set the default search/filter term
     vm.filterCount  = SortAppFactory.data.filterCount;
     vm.searchName   = SortAppFactory.data;
     vm.sushi = [
@@ -78,19 +77,7 @@
     return {
       restrict : 'E',
       replace: true,
-
-      controller: function ($scope, SortAppFactory) {
-        var vm = this;
-        vm.searchName = SortAppFactory.data.searchName;
-        $scope.$watch(function () {
-          return vm.searchName;
-        }, 
-        function(newVal, oldVal) {
-          SortAppFactory.data.searchName = newVal ;
-          // console.log(vm.searchName);
-          // console.log(SortAppFactory.data.searchName);
-        });
-      },
+      controller: 'HeaderFilterController',
       controllerAs: 'hf',
       bindToController: true,
       scope: {
@@ -108,16 +95,14 @@
     .controller('HeaderFilterController', HeaderFilterController);
   HeaderFilterController.$inject = ['$scope', 'SortAppFactory'];
   function HeaderFilterController ($scope, SortAppFactory) {
-    // var vm = this;
-    // vm.searchName = SortAppFactory.data.searchName;
-    // $scope.$watch(function () {
-    //   return vm.searchName;
-    // }, 
-    // function(newVal, oldVal) {
-    //   SortAppFactory.data.searchName = newVal ;
-    //   console.log(vm.searchName);
-    //   console.log(SortAppFactory.data.searchName);
-    // });
+    var vm = this;
+    vm.searchName = SortAppFactory.data.searchName;
+    $scope.$watch(function () {
+      return vm.searchName;
+    }, 
+    function(newVal, oldVal) {
+      SortAppFactory.data.searchName = newVal ;
+    });
   }
 })(angular);
 

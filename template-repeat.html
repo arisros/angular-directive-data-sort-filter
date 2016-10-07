@@ -1,7 +1,6 @@
 <div>
 	<!-- <i>{{vv.folter}}</i> -->
 	<!-- <p>{{lp.filtered.length}}</p> -->
-	<i>{{lp.searchName}}</i>
 	<table>
 		<tr ng-repeat='roll in lp.data | filter : $parent.vm.searchName.searchName'> <!-- { "name": "c"}'  -->
 		  <td>{{ roll.name }}</td>
