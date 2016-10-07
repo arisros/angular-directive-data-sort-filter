@@ -1,5 +1,7 @@
 <div>
-  <input type="text" class="form-control" placeholder="Search da Fish" ng-model="hf.searchName.name">
+  <input type="text" class="form-control" placeholder="Search" ng-model="hf.searchName.name">
+  <i ng-show="$parent.vm.filterCount.length">Found<span ng-show="$parent.vm.filterCount.length > 1">s</span> {{$parent.vm.filterCount.length}} data</i>
+  <i ng-show="!$parent.vm.filterCount.length">Not any data Found with your keyword</i>
   <table class="table table-bordered table-striped">
     <thead>
       <tr>

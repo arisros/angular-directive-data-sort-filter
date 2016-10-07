@@ -2,9 +2,12 @@
 	<!-- <i>{{vv.folter}}</i> -->
 	<!-- <p>{{lp.filtered.length}}</p> -->
 	<table>
-		<tr ng-repeat='roll in lp.data 
-							| orderBy:$parent.vm.sortType:$parent.vm.sortReverse 
-							| filter : $parent.vm.searchName.searchName'> <!-- { "name": "c"}'  -->
+		<tr ng-repeat='roll in $parent.vm.filterCount = 
+			(
+				lp.data 
+					| orderBy: $parent.vm.sortType:$parent.vm.sortReverse 
+					| filter : $parent.vm.searchName.searchName 
+			)'> <!-- { "name": "c"}'  -->
 		  <td>{{ roll.name }}</td>
 		  <td>{{ roll.fish }}</td>
 		  <td>{{ roll.tastiness }}</td>

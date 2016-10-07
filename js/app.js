@@ -18,6 +18,7 @@
     vm.sortReverse  = SortAppFactory.data.sortReverse;  // set the default sort order
     vm.filterCount  = SortAppFactory.data.filterCount;
     vm.searchName   = SortAppFactory.data;
+
     vm.sushi = [
       { name: 'Cali Roll', fish: 'Crab', tastiness: 2 },
       { name: 'Philly', fish: 'Tuna', tastiness: 4 },
