@@ -1,7 +1,7 @@
 // Modul sortApp
 (function(angular) {
   'use strict';
-  angular.module('sortApp', []);
+  angular.module('sortApp', ['ngMaterial']);
 })(angular);
 
 // Controller mainController -> sortApp
