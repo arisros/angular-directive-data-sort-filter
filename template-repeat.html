@@ -3,7 +3,7 @@
 	<!-- <p>{{lp.filtered.length}}</p> -->
 	<i>{{lp.searchName}}</i>
 	<table>
-		<tr ng-repeat='roll in lp.data | filter : lp.searchName'> <!-- { "name": "c"}'  -->
+		<tr ng-repeat='roll in lp.data | filter : $parent.vm.searchName.searchName'> <!-- { "name": "c"}'  -->
 		  <td>{{ roll.name }}</td>
 		  <td>{{ roll.fish }}</td>
 		  <td>{{ roll.tastiness }}</td>

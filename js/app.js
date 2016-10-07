@@ -18,22 +18,7 @@
     vm.sortReverse  = SortAppFactory.data.sortReverse;  // set the default sort order
     vm.searchFish   = SortAppFactory.data.searchFish;     // set the default search/filter term
     vm.filterCount  = SortAppFactory.data.filterCount;
-    vm.searchName   = SortAppFactory.data.searchName;
-    $scope.$watch(function () {
-      return vm.searchName;
-    },
-    function(newVal, oldVal) {
-      vm.searchName  = newVal;
-      console.log(vm.searchName);
-    });
-    $scope.$watch(function () {
-      return vm.searchName;
-    }, 
-    function(newVal, oldVal) {
-      SortAppFactory.data.searchName = newVal ;
-      // console.log(vm.searchName);
-      // console.log(SortAppFactory.data.searchName);
-    });
+    vm.searchName   = SortAppFactory.data;
     vm.sushi = [
       { name: 'Cali Roll', fish: 'Crab', tastiness: 2 },
       { name: 'Philly', fish: 'Tuna', tastiness: 4 },
@@ -70,7 +55,7 @@
       restrict: 'E',
       replace: true,
       controller: 'ListRepeaterController',
-      controllerAs: 'vv',
+      controllerAs: 'lp',
       templateUrl: 'template-repeat.html',
       scope: {
         data : '='
