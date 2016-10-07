@@ -33,12 +33,12 @@ ListRepeaterController$inject = ['$scope', 'SortAppFactory'];
 function ListRepeaterController($scope,SortAppFactory) {
   var vm = this;
   vm.filter = 0;
-  $scope.$watch(function () {
-    $scope.filtered = $scope.$eval("vv.data | orderBy:$parent.vm.sortType:$parent.vm.sortReverse | filter:vv.searchName");
-    vm.folter = $scope.filtered.length;
-    console.log($scope.filtered.length);
-  });
-  console.log($scope.filtered);
+  // $scope.$watch(function () {
+  //   $scope.filtered = $scope.$eval("vv.data | orderBy:$parent.vm.sortType:$parent.vm.sortReverse | filter:vv.searchName");
+  //   vm.folter = $scope.filtered.length;
+  //   console.log($scope.filtered.length);
+  // });
+
 }
 
 // Directive listRepeater -> sortApp
@@ -90,9 +90,17 @@ function SortAppFactory() {
     sortType     : 'name', 
     sortReverse  : false,  
     searchFish   : '',     
-    filterCount  : 0,
+    filterCount  : filterFn,
   };
   return service;
+
+  function filterFn() {
+    $scope.$watch(function () {
+      $scope.filtered = $scope.$eval("vv.data | orderBy:$parent.vm.sortType:$parent.vm.sortReverse | filter:vv.searchName");
+      vm.folter = $scope.filtered.length;
+      console.log($scope.filtered.length);
+    });
+  }
 } 
 
 
