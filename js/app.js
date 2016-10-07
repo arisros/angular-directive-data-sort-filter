@@ -3,17 +3,24 @@ angular.module('sortApp', []);
 
 // Controller mainController -> sortApp
 angular
-.module('sortApp')
-.controller('MainController', MainController);
-MainController.inject = ['SortAppFactory'];
-function MainController(SortAppFactory) {
+  .module('sortApp')
+  .controller('MainController', MainController);
+MainController.inject = ['$scope', 'SortAppFactory'];
+function MainController($scope, SortAppFactory) {
   var vm = this;
 
-  vm.sortType     = SortAppFactory.sortType; // set the default sort type
-  vm.sortReverse  = SortAppFactory.sortReverse;  // set the default sort order
-  vm.searchFish   = SortAppFactory.searchFish;     // set the default search/filter term
-  vm.filterCount  = SortAppFactory.filterCount;
-
+  vm.sortType     = SortAppFactory.data.sortType; // set the default sort type
+  vm.sortReverse  = SortAppFactory.data.sortReverse;  // set the default sort order
+  vm.searchFish   = SortAppFactory.data.searchFish;     // set the default search/filter term
+  vm.filterCount  = SortAppFactory.data.filterCount;
+  vm.searchName   = SortAppFactory.data;
+  console.log(vm.searchName);
+    // $scope.$watchCollection(function() {
+    //   return SortAppFactory;
+    // }, 
+    // function(oldVal, newVal) {
+    //   console.log(newVal);
+    // });
   vm.sushi = [
     { name: 'Cali Roll', fish: 'Crab', tastiness: 2 },
     { name: 'Philly', fish: 'Tuna', tastiness: 4 },
@@ -29,19 +36,11 @@ function MainController(SortAppFactory) {
 angular
   .module('sortApp')
   .controller('ListRepeaterController', ListRepeaterController);
-ListRepeaterController$inject = ['$scope', 'SortAppFactory'];
-function ListRepeaterController($scope,SortAppFactory) {
+ListRepeaterController.$inject = ['$scope','SortAppFactory'];
+function ListRepeaterController($scope, SortAppFactory) {
   var vm = this;
-  vm.filter = 0;
-  // $scope.$watch(function () {
-  //   $scope.filtered = $scope.$eval("vv.data | orderBy:$parent.vm.sortType:$parent.vm.sortReverse | filter:vv.searchName");
-  //   vm.folter = $scope.filtered.length;
-  //   console.log($scope.filtered.length);
-  // });
-
 }
 
-// Directive listRepeater -> sortApp
 angular
 	.module('sortApp')
 	.directive('listRepeater', listRepeater);
@@ -52,13 +51,11 @@ function listRepeater(SortAppFactory) {
 		replace: true,
     controller: 'ListRepeaterController',
     controllerAs: 'vv',
-    bindToController: true,
     templateUrl: 'template-repeat.html',
-		scope: {
-      searchName: '=',
-			data: '=',
-      filterod: '='
-		}
+    scope: {
+      data : '='
+    },
+    bindToController: true
   };            
 }
 // Directive headerFilter -> sortApp
@@ -66,14 +63,27 @@ angular
   .module('sortApp')
   .directive('headerFilter', headerFilter);
 
-headerFilter.$inject = [];
+headerFilter.$inject = ['SortAppFactory'];
 
-function headerFilter() {
+function headerFilter(SortAppFactory) {
   return {
     restrict : 'E',
     replace: true,
+    controller: function ($scope, SortAppFactory) {
+      var vm = this;
+      vm.searchName = SortAppFactory.data.searchName;
+      // SortAppFactory.data.searchName = $scope.$eval(vm.searchName);
+      $scope.$watch(function () {
+        return vm.searchName;
+      }, 
+      function(newVal, oldVal) {
+        SortAppFactory.data.searchName = newVal ;
+        console.log(SortAppFactory.data.searchName);
+      });
+    },
+    controllerAs: 'hf',
+    bindToController: true,
     scope: {
-      searchName: '=',
       data: '='
     },
     templateUrl: 'template-header.html'
@@ -86,21 +96,17 @@ angular
   .factory('SortAppFactory', SortAppFactory);
 SortAppFactory.$inject = [];
 function SortAppFactory() {
-  var service = {
-    sortType     : 'name', 
-    sortReverse  : false,  
-    searchFish   : '',     
-    filterCount  : filterFn,
+  var service = {   
+    data  : {
+      searchName   : 'Aris',
+      sortType     : 'name', 
+      sortReverse  : false,  
+      searchFish   : '',
+      filterCount  : 0,
+    }
   };
-  return service;
 
-  function filterFn() {
-    $scope.$watch(function () {
-      $scope.filtered = $scope.$eval("vv.data | orderBy:$parent.vm.sortType:$parent.vm.sortReverse | filter:vv.searchName");
-      vm.folter = $scope.filtered.length;
-      console.log($scope.filtered.length);
-    });
-  }
+  return service;
 } 
 
 

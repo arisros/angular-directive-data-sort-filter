@@ -17,14 +17,21 @@
   <div class="alert alert-info">
     <p>Sort Type: {{ vm.sortType }}</p>
     <p>Sort Reverse: {{ vm.sortReverse }}</p>
-    <p>Search Query: {{ vm.searchFish }}</p>
+    <p>Search Query: {{ vm.searchName.searchName }}</p>
   </div>
   
-  <header-filter data="vm.sushi" search-name="vm.searchName"></header-filter>
+  <header-filter data="vm.sushi" 
+                search-name="vm.searchName">
+                  
+  </header-filter>
   <table>
   	<tbody>
     {{vm.filterCount}}
-    <list-repeater filterod="vm.filterCount" sort-type="vm" search-name="vm.searchName" data="vm.sushi"></list-repeater>
+    <!-- {{vm.filterCount}} -->
+    <list-repeater filterod="vm.filterCount" 
+    sort-type="vm" 
+    search-name="vm.searchName" 
+    data="vm.sushi"></list-repeater>
   </table>
 </div>
 	<script src="node_modules/angular/angular.min.js"></script>

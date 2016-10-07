@@ -1,8 +1,9 @@
 <div>
-	<i>{{vv.folter}}</i>
-	<p>{{filtered.length}}</p>
+	<!-- <i>{{vv.folter}}</i> -->
+	<p>{{vv.filtered.length}}</p>
+	<i>{{vv.searchName}}</i>
 	<table>
-		<tr ng-repeat="roll in filtered ">
+		<tr ng-repeat="roll in vv.filtered = ( vv.data | filter:vv.searchName)">
 		  <td>{{ roll.name }}</td>
 		  <td>{{ roll.fish }}</td>
 		  <td>{{ roll.tastiness }}</td>
