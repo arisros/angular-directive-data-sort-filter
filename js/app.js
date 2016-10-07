@@ -80,7 +80,19 @@
     return {
       restrict : 'E',
       replace: true,
-      controller: 'HeaderFilterController',
+
+      controller: function ($scope, SortAppFactory) {
+        var vm = this;
+        vm.searchName = SortAppFactory.data.searchName;
+        $scope.$watch(function () {
+          return vm.searchName;
+        }, 
+        function(newVal, oldVal) {
+          SortAppFactory.data.searchName = newVal ;
+          console.log(vm.searchName);
+          console.log(SortAppFactory.data.searchName);
+        });
+      },
       controllerAs: 'hf',
       bindToController: true,
       scope: {
@@ -98,16 +110,16 @@
     .controller('HeaderFilterController', HeaderFilterController);
   HeaderFilterController.$inject = ['$scope', 'SortAppFactory'];
   function HeaderFilterController ($scope, SortAppFactory) {
-    var vm = this;
-    vm.searchName = SortAppFactory.data.searchName;
-    $scope.$watch(function () {
-      return vm.searchName;
-    }, 
-    function(newVal, oldVal) {
-      SortAppFactory.data.searchName = newVal ;
-      console.log(vm.searchName);
-      console.log(SortAppFactory.data.searchName);
-    });
+    // var vm = this;
+    // vm.searchName = SortAppFactory.data.searchName;
+    // $scope.$watch(function () {
+    //   return vm.searchName;
+    // }, 
+    // function(newVal, oldVal) {
+    //   SortAppFactory.data.searchName = newVal ;
+    //   console.log(vm.searchName);
+    //   console.log(SortAppFactory.data.searchName);
+    // });
   }
 })(angular);
 
